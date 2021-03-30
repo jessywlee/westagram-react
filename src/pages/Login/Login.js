@@ -21,7 +21,6 @@ class Login extends Component {
           idValue: e.target.value,  
         });
 
-        console.log(this.state.idValue);
     }
 
     handlePwInput = (e) => {
@@ -30,7 +29,20 @@ class Login extends Component {
         });
         
     }
+
+    enableLogin = () => {
+       return (this.state.idValue.includes("@") && this.state.pwValue.length >= 5) ? false : true;
+    }
+
+    changeLoginButton = () => {
+        if (this.state.idValue.includes("@") && this.state.pwValue.length >= 5) {
+            return "login-button-enabled";
+        } else {
+            return "login-button-disabled";
+        }
+    }
     
+
     
     render() {
         return (
@@ -41,7 +53,7 @@ class Login extends Component {
                     <form className="login-form">
                         <input className="login-info" onChange={this.handleIdInput} id="id" type="text" placeholder="전화번호, 사용자 이름 또는 이메일" />
                         <input className="login-info" onChange={this.handlePwInput} id="password" type="password" placeholder="비밀번호" />
-                        <button className="login-button" type="submit" onClick={this.goToMain}>로그인</button>
+                        <button className="login-button" disabled={this.enableLogin()} id={this.changeLoginButton()} type="submit" onClick={this.goToMain}>로그인</button>
                     </form>
                     <div className="forgot-password">
                     <a href="https://www.instagram.com/accounts/password/reset/">비밀번호를 잊으셨나요?</a>
